@@ -95,7 +95,7 @@ class NotionExtractor(BaseExtractor):
                 "Notion-Version": "2022-06-28",
             },
             json=query_dict,
-        )
+        timeout=60)
 
         data = res.json()
 
@@ -153,8 +153,8 @@ class NotionExtractor(BaseExtractor):
                     "Content-Type": "application/json",
                     "Notion-Version": "2022-06-28",
                 },
-                json=query_dict
-            )
+                json=query_dict, 
+            timeout=60)
             data = res.json()
             for result in data["results"]:
                 result_type = result["type"]
@@ -210,8 +210,8 @@ class NotionExtractor(BaseExtractor):
                     "Content-Type": "application/json",
                     "Notion-Version": "2022-06-28",
                 },
-                json=query_dict
-            )
+                json=query_dict, 
+            timeout=60)
             data = res.json()
             if 'results' not in data or data["results"] is None:
                 break
@@ -271,8 +271,8 @@ class NotionExtractor(BaseExtractor):
                     "Content-Type": "application/json",
                     "Notion-Version": "2022-06-28",
                 },
-                json=query_dict
-            )
+                json=query_dict, 
+            timeout=60)
             data = res.json()
             # get table headers text
             table_header_cell_texts = []
@@ -337,8 +337,8 @@ class NotionExtractor(BaseExtractor):
                 "Content-Type": "application/json",
                 "Notion-Version": "2022-06-28",
             },
-            json=query_dict
-        )
+            json=query_dict, 
+        timeout=60)
 
         data = res.json()
         return data["last_edited_time"]
