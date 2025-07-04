@@ -5,8 +5,6 @@ import os
 import tempfile
 import uuid
 from urllib.parse import urlparse
-
-import requests
 from docx import Document as DocxDocument
 from flask import current_app
 
@@ -15,6 +13,7 @@ from core.rag.models.document import Document
 from extensions.ext_database import db
 from extensions.ext_storage import storage
 from models.model import UploadFile
+from security import safe_requests
 
 
 class WordExtractor(BaseExtractor):
@@ -36,7 +35,7 @@ class WordExtractor(BaseExtractor):
 
         # If the file is a web path, download it to a temporary file, and use that
         if not os.path.isfile(self.file_path) and self._is_valid_url(self.file_path):
-            r = requests.get(self.file_path)
+            r = safe_requests.get(self.file_path)
 
             if r.status_code != 200:
                 raise ValueError(
